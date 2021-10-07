@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\BiographyController;
+use App\Http\Controllers\PowerstatController;
+use App\Http\Controllers\SuperheroController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,16 +18,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::post('register/', [AuthController::class, 'registerUser']);
 
 Route::post('login/', [AuthController::class, 'logInUser']);
 
-Route::apiResource('biography', BiographyController::class);
+Route::apiResource('biographies', BiographyController::class)->middleware('auth:api');
 
-Route::apiResource('powerstart', BiographyController::class);
+Route::apiResource('powerstarts', PowerstatController::class )->middleware('auth:api');
 
-Route::apiResource('superhero', BiographyController::class);
+Route::apiResource('superheroes', SuperheroController::class )->middleware('auth:api');
