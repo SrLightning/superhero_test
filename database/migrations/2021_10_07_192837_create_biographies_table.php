@@ -17,7 +17,7 @@ class CreateBiographiesTable extends Migration
             $table->id();
             $table->string('name', 255);
             $table->integer('years_old')->nullable();
-            $table->date('birthplace')->nullable();
+            $table->string('birthplace')->nullable();
             $table->string('race', 50);
             $table->timestamps();
         });

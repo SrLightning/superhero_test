@@ -12,20 +12,24 @@ class SuperheroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $data = Superhero::with([]);
+
+        if ($request->no_paginate == true) {
+            return response([
+                'status' => 0,
+                'items' => $data->get()
+            ], 200);
+        }
+
+        return response([
+            'status' => 0,
+            'items' => $data->paginate(10)
+        ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -34,28 +38,6 @@ class SuperheroController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Superhero  $superhero
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Superhero $superhero)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Superhero  $superhero
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Superhero $superhero)
     {
         //
     }
