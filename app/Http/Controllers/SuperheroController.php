@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Biography;
+use App\Models\Powerstat;
 use App\Models\Superhero;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SuperheroController extends Controller
 {
@@ -40,6 +43,37 @@ class SuperheroController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = Validator::make($request->all(), Superhero::$form_rules);
+
+        if ($validator->fails)
+            return response([ 
+                'status' => 1, 
+                'errors' => $validator->errors(), 
+                'message' => 'Hubo algunos errores al momento de validar los campos.', ], 
+                400); 
+        
+            $biography = Biography ::create([
+                'name' => $request['name'],
+                'years_old' => $request['years_old'],
+                'birthplace' => $request['birthplace'],
+                'race' => $request['race'], ]);
+    
+            $powerstat = Powerstat::create([
+                'intelligence' => $request['intelligence'],
+                'speed' => $request['speed'],
+                'power' => $request['power'],
+                'durability' => $request['durability'], ]);
+    
+            $superhero = Superhero::create([
+                'alter_ego' => $request['alter_ego'],
+                'powerstat_id' => $powerstat->id,
+                'biography_id' => $biography->id, ]);
+        
+        return response([ 
+            'item' => $superhero, 
+            'message' => 'Invalid credentials'], 
+            400); 
+
     }
 
     /**

@@ -27,6 +27,20 @@ class Superhero extends Model
         'biography_id' => 'integer|required',
     ];
 
+    public static $form_rules = [
+        'alter_ego' => 'string|required',
+
+        'intelligence' => 'integer|required',
+        'speed' => 'integer|required',
+        'power' => 'integer|required',
+        'durability' => 'integer|required',
+
+        'name' => 'required|string',
+        'years_old' => 'nullable|integer',
+        'birthplace' => 'required|string',
+        'race' => 'required|string',
+    ];
+
 
     public function powerstat()
     {
